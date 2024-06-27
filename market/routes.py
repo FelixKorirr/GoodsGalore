@@ -1,9 +1,10 @@
 from market import app
 from market.models import Item
 from flask import render_template, redirect, url_for, flash
-from market.forms import RegisterForm
+from market.forms import RegisterForm, LoginForm
 from market.models import User
-from market import db
+from market import db, bcrypt
+from flask_login import login_user
 
 
 @app.route("/")
@@ -33,3 +34,18 @@ def register_page():
             for error in errors:
                 flash(f"{field_name} field error: {error}", category="danger")
     return render_template('register.html', form=form)
+
+
+@app.route("/login", methods=["GET", "POST"], strict_slashes=False)
+def login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        usr = User.query.filter_by(email=form.email.data).first()
+        if usr and usr.check_password(form.password.data):
+            login_user(usr)
+            flash('Login SuccessFul', category='success')
+            return redirect(url_for('market_page'))
+        else:
+            flash('username and password do not match', category='danger')
+
+    return render_template("login.html", form=form)

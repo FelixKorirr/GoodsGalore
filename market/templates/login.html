@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<body class="text-center">
+  <div class="container">
+    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+		<br>
+      <form action="/login" method="post" class="form-signin" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.email.label }}
+        {{ form.email(class='form-control', placeholder='Enter Email') }}
+
+        {{ form.password.label }}
+        {{ form.password(class='form-control', placeholder='Enter Password') }}
+		<br>
+				<div class="checkbox mb-3">
+					<span>Don't have an account?</span>
+					<a href="{{ url_for('register_page') }}">Sign Up</a>
+				</div>
+        {{ form.submit(class='btn btn-lg btn-block btn-primary')}}
+
+      </form>
+
+  </div>
+</body>
+{% endblock %}
+
