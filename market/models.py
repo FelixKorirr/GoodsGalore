@@ -1,4 +1,4 @@
-from market import db
+from market import db, bcrypt
 
 
 class Item(db.Model):
@@ -10,7 +10,7 @@ class Item(db.Model):
     description = db.Column(db.String(
         1024), nullable=False)
     owner_id = db.Column(
-        db.Integer(), db.ForeignKey('users.id'), nullable=False)
+        db.Integer(), db.ForeignKey('users.id'))
 
 
 class User(db.Model):
@@ -22,5 +22,11 @@ class User(db.Model):
     budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owner', lazy=True)
 
-    def __repr__(self):
-        return f'{self.id} {self.name} {self.barcode} {self.price} {self.description}'
+    @property
+    def password(self):
+        return self.password_hash
+
+    @password.setter
+    def password(self, plain_password):
+        self.password_hash = bcrypt.generate_password_hash(
+            plain_password).decode('utf-8')

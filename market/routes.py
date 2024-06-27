@@ -4,7 +4,6 @@ from flask import render_template, redirect, url_for, flash
 from market.forms import RegisterForm
 from market.models import User
 from market import db
-import time
 
 
 @app.route("/")
@@ -24,13 +23,13 @@ def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
-                    email=form.email.data, password_hash=form.password.data)
+                    email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('market_page'))
 
     if form.errors:
-        for err in form.errors.values():
-            flash(err)
-
+        for field_name, errors in form.errors.items():
+            for error in errors:
+                flash(f"{field_name} field error: {error}", category="danger")
     return render_template('register.html', form=form)
