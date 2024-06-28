@@ -28,7 +28,8 @@ def register_page():
                     email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('market_page'))
+        flash('Registration Successful', category='success')
+        return redirect(url_for('login_page'))
 
     if form.errors:
         for field_name, errors in form.errors.items():
