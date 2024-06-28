@@ -40,3 +40,6 @@ class User(db.Model, UserMixin):
 
     def check_password(self, plain_password):
         return bcrypt.check_password_hash(self.password_hash, plain_password)
+
+    def modify_budget(self):
+        return f'${str(self.budget)[:-3]},{str(self.budget)[-3:]}'
