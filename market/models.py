@@ -19,9 +19,6 @@ class Item(db.Model):
     owner_id = db.Column(
         db.Integer(), db.ForeignKey('users.id'))
 
-    def __init__(self):
-        self.price = f'${self.price}'
-
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -29,7 +26,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(30), nullable=False, unique=True)
     email = db.Column(db.String(20), nullable=False, unique=True)
     password_hash = db.Column(db.Integer(), nullable=False)
-    budget = db.Column(db.Integer(), nullable=False, default=10000)
+    budget = db.Column(db.Integer(), nullable=False, default=5000)
     items = db.relationship('Item', backref='owner', lazy=True)
 
     @property

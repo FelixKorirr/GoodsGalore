@@ -1,0 +1,24 @@
+{# Sell Item Modal #}
+<div class="modal fade" id="modalSellItem-{{ owned_item.id }}" tabindex="-1" aria-labelledby="modalSellItemLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSellItemLabel">{{ owned_item.name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ owned_item.description }}
+        <form action="/market/" method="post">
+          {{ sell_form.hidden_tag() }}
+          <input type="hidden" name="name" value="{{ owned_item.name }}">
+          {{ sell_form.submit(class="btn btn-outline-danger btn-block")}}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
