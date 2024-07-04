@@ -28,3 +28,8 @@ $ pip3 install -r requirements.txt
 $ python3 run.py
 ```
 
+## Usage
+* Open your browser and navigate to http://localhost:5000
+* Register as new user and login
+* You can now buy from and sell products to the market
+
