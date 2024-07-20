@@ -8,10 +8,11 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "12345"
 
-database_path = os.path.join(os.path.abspath(
-    os.path.dirname(__file__)), 'market.db')
+# database_path = os.path.join(os.path.abspath(
+#     os.path.dirname(__file__)), 'market.db')
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{database_path}'
+app.config[
+    "SQLALCHEMY_DATABASE_URI"] = f'mysql+mysqldb://korir:korir@localhost:3306/market'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
