@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "12345"
 
 app.config[
-    "SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://felix:korir@localhost:3306/market'
+    "SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://felix:korir@192.168.43.50:3306/market'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
