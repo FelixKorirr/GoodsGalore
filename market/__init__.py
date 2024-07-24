@@ -3,13 +3,18 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from sqlalchemy.engine.url import make_url
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "12345"
 
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+db_url = make_url(DATABASE_URL)
+
 app.config[
-    "SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://felix:korir@192.168.43.50:3306/market'
+    "SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
